@@ -1,4 +1,4 @@
-#include FileScanner.h
+#include "FileScanner.h"
 
 #include <filesystem> //Für Ordner/Datein
 #include <fstream> //Datein lesem
@@ -18,7 +18,7 @@ void FileScanner::scan(const std::string& path, const std::string& word, std::ve
     for (const auto& entry : fs::directory_iterator(path)) { //directory_iterator läuft über alle einträge in "path"
         if (entry.is_directory()) {
             //Rekursion wenn entry noch ein Ordner ist (weil wenn scan einen unterordner findet, muss dieser ja ebenfalls gescannt werden -> also nochmal scan() aufrufen)
-            scan(entry.path.string(), word, results);
+            scan(entry.path().string(), word, results);
 
         } else if (entry.is_regular_file()) {
             // ifstream = input file stream -> wird benutzt um Datein zu lesen (Text/Binär)

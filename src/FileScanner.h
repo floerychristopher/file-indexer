@@ -8,4 +8,4 @@ class FileScanner {
 
     private:
         void scan(const std::string& path, const std::string& word, std::vector<std::string>& results);
-}
+};
