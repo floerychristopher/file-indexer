@@ -1,0 +1,11 @@
+# Build files
+*.o
+*.out
+*.exe
+*.a
+
+# VSCode
+.vscode/
+
+# Other 
+Notizen.txt
