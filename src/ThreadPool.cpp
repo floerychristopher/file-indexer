@@ -40,3 +40,16 @@ void ThreadPool::enqueue(std::function<void()> task) {
     }
     condition.notify_one();
 }
+
+ThreadPool::~ThreadPool() {
+    {
+        std::lock_guard<std::mutex> lock(queueMutex);
+        stop = true;
+    }
+
+    condition.notify_all();
+
+    for (std::thread &worker : workers) {
+        worker.join();
+    }
+}
