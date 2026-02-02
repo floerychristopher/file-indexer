@@ -32,3 +32,11 @@ ThreadPool::ThreadPool(size_t numThreads) : stop(false) {
         });
     }
 }
+
+void ThreadPool::enqueue(std::function<void()> task) {
+    {
+        std::lock_guard<std::mutex> lock(queueMutex);
+        tasks.push(std::move(task));
+    }
+    condition.notify_one();
+}
