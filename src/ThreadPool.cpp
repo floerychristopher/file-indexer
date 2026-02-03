@@ -27,7 +27,7 @@ ThreadPool::ThreadPool(size_t numThreads) : stop(false) {
                     tasks.pop();
                 }
 
-                task();
+                task(); //Task ausführen
             }
         });
     }
