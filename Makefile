@@ -1,11 +1,22 @@
 CXX = g++
-CXXFLAGS = -std=c++17 -Wall
+CXXFLAGS = -std=c++17 -Wall -pthread
 
-SRC = src/main.cpp src/FileScanner.cpp
-OUT = indexer
+TARGET = indexer
 
-all:
-	$(CXX) $(CXXFLAGS) $(SRC) -o $(OUT)
+SRC_DIR = src
+BUILD_DIR = build
+
+SRCS = $(SRC_DIR)/main.cpp $(SRC_DIR)/ThreadPool.cpp $(SRC_DIR)/FileScanner.cpp
+OBJS = $(SRCS:$(SRC_DIR)/%.cpp=$(BUILD_DIR)/%.o)
+
+all: $(TARGET)
+
+$(TARGET): $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
+
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
+	mkdir -p $(BUILD_DIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OUT)
+	rm -f $(BUILD_DIR) $(TARGET)
