@@ -6,6 +6,7 @@
 #include <queue>
 #include <mutex>
 #include <condition_variable>
+#include <iostream>
 
 class ThreadPool {
     public:
@@ -16,10 +17,10 @@ class ThreadPool {
 
     private:
         std::vector<std::thread> workers;           // Workers
-        std::queue<std::function<void()>> tasks;    // Task Warteschlange
+        std::queue<std::function<void()>> tasks;    // Task queue
 
-        std::mutex queueMutex;                      // schützt die Queue
-        std::condition_variable condition;          // weckt schlafende Threads
+        std::mutex queueMutex;                      // Protect queue
+        std::condition_variable condition;          // Wakes up waiting threads
         bool stop;
 };
 

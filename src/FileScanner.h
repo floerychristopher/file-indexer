@@ -1,5 +1,8 @@
 #pragma once // "Diese Datei nur einmal einbinden"
 #include <string>
+#include <filesystem>
 #include "ThreadPool.h"
 
-void scanDirectory(const std::string& path, ThreadPool& pool);
+namespace fs = std::filesystem;
+
+void scanDirectory(const fs::path& path, ThreadPool& pool);
